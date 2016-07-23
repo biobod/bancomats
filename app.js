@@ -17,16 +17,19 @@ app.use(express.static(__dirname));
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
-
-app.get('/', function (req, res, next) {
+app.use('/', bodyParser.urlencoded({
+    extended: false
+}));
+app.route('/')
+  .get(function (req, res, next) {
     res.setHeader('Content-Type', 'text/html');
     res.render('main.html');
     res.end();
-});
-app.use('/a', bodyParser.urlencoded({
-    extended: false
-}));
-app.post('/a', function (req, res, next) {
+})
+
+.post(function (req, res, next) {
+    res.setHeader('Content-Type', 'text/html');
+    res.render('main.html');
     console.log(req.body.city);
     res.end();
 });
